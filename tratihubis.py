@@ -285,7 +285,7 @@ import time
 import token
 import tokenize
 import datetime
-import dateutil.parser
+#import dateutil.parser
 
 from translator import Translator, NullTranslator
 
@@ -533,10 +533,10 @@ def _tracTicketMaps(ticketsCsvPath):
                     'resolution': row[6],
                     'summary': row[7],
                     'description': row[8],
-#                    'createdtime': datetime.datetime.fromtimestamp(long(row[9])),
-#                    'modifiedtime': datetime.datetime.fromtimestamp(long(row[10])),
-                    'createdtime': dateutil.parser.parse(str(row[9])),
-                    'modifiedtime': dateutil.parser.parse(str(row[10])),
+                    'createdtime': datetime.datetime.fromtimestamp(long(row[9])),
+                    'modifiedtime': datetime.datetime.fromtimestamp(long(row[10])),
+#                    'createdtime': dateutil.parser.parse(str(row[9])),
+#                    'modifiedtime': dateutil.parser.parse(str(row[10])),
                     'component': row[11],
                     'priority': row[12],
                     'keywords': row[13],
@@ -597,8 +597,8 @@ def _createTicketToCommentsMap(commentsCsvPath):
                 if hasReadHeader:
                     commentMap = {
                         'id': long(row[0]),
-#                        'date': datetime.datetime.fromtimestamp(long(row[1])),
-                        'date': dateutil.parser.parse(str(row[1])),
+                        'date': datetime.datetime.fromtimestamp(long(row[1])),
+#                        'date': dateutil.parser.parse(str(row[1])),
                         'author': row[2],
                         'body': row[3],
                     }
@@ -648,8 +648,8 @@ def _createTicketsToAttachmentsMap(attachmentsCsvPath, attachmentsPrefix):
                     'id': long(id_string),
                     'author': row[3],
                     'filename': row[1],
-#                    'date': datetime.datetime.fromtimestamp(long(row[2])),
-                    'date': dateutil.parser.parse(str(row[2])),
+                    'date': datetime.datetime.fromtimestamp(long(row[2])),
+#                    'date': dateutil.parser.parse(str(row[2])),
                     'fullpath': u'%s/%s/%s' % (attachmentsPrefix, row[0], row[1]),
                     }
                     if not attachmentMap['id'] in result:
@@ -853,6 +853,7 @@ def migrateTickets(hub, repo, defaultToken, ticketsCsvPath,
                 if ticketId not in _editedIssues:
                     _editedIssues.append(ticketId)
             origbody = body
+            print 'ticketId',ticketId
             body = translator.translate(body, ticketId=ticketId)
             if body != origbody:
                 if ticketId not in _editedIssues:

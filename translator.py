@@ -109,3 +109,5 @@ class Translator(object):
 class NullTranslator(Translator):
     def translate(self, text):
         return text
+    def translate(self, text, ticketId=''):
+        return text
